@@ -1,0 +1,16 @@
+<launch>
+    <!-- start the Kinect -->
+    <arg name="rgb_rect" default="1" />
+    <arg name="depth_rect" default="1" />
+    <arg name="ir_rect" default="1" />
+    <arg name="point_cloud" default="1" />
+    <arg name="rgb_point_cloud" default="1" />
+
+    <!-- Start the K4A sensor driver -->
+    <group ns="k4a" >
+        <include file="$(find azure_kinect_ros_driver)/launch/driver.launch" >
+            <arg name="overwrite_robot_description" value="false" />
+        </include>
+    </group>
+
+</launch>

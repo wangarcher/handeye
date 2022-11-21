@@ -1,0 +1,26 @@
+<launch>
+    <arg name="namespace_prefix" default="ur5_k4a_handeyecalibration"/>
+
+    <arg name="eye_on_hand" default="true" doc=""/>
+    <arg name="freehand_robot_movement" default="false" doc=""/>
+    <arg name="rviz_config_file" default="$(find easy_handeye)/launch/ur5e_k4a_rviz_config.rviz"/>
+
+    <arg name="tracking_marker_frame" default="marker_0"/>
+
+    <!-- start easy_handeye -->
+    <include file="$(find easy_handeye)/launch/calibrate.launch">
+        <arg name="namespace_prefix" value="$(arg namespace_prefix)"/>
+        <arg name="eye_on_hand" value="$(arg eye_on_hand)"/>
+        <arg name="rviz_config_file" value="$(arg rviz_config_file)"/>
+
+        <arg name="tracking_base_frame" value="camera_base"/>
+        <arg name="tracking_marker_frame" value="$(arg tracking_marker_frame)"/>
+        <arg name="robot_base_frame" value="base_link"/>
+        <arg name="robot_effector_frame" value="tool0"/>
+
+        <arg name="freehand_robot_movement" value="$(arg freehand_robot_movement)"/>
+        <arg name="robot_velocity_scaling" value="0.5"/>
+        <arg name="robot_acceleration_scaling" value="0.2"/>
+    </include>
+
+</launch>

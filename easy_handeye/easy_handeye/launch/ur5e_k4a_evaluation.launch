@@ -1,0 +1,38 @@
+<launch>
+    <arg name="namespace_prefix" default="ur5_k4a_handeyecalibration"/>
+    <arg name="rviz_config_file" default="$(find easy_handeye)/launch/ur5e_k4a_rviz_config.rviz"/>
+
+    <arg name="eye_on_hand" default="true" doc=""/>
+    <arg if="$(arg eye_on_hand)" name="namespace" value="$(arg namespace_prefix)_eye_on_hand" />
+    <arg unless="$(arg eye_on_hand)" name="namespace" value="$(arg namespace_prefix)_eye_on_base" />
+
+    <arg name="robot_base_frame" default="base_link" />
+    <arg name="robot_effector_frame" default="wrist_3_link" />
+    <arg name="tracking_base_frame" default="camera_base" />
+    <arg name="tracking_marker_frame" default="board" />
+
+    <!-- publish the hand-eye calibration computed with easy_handeye -->
+    <include file="$(find easy_handeye)/launch/publish.launch" >
+        <arg name="eye_on_hand" value="$(arg eye_on_hand)" />
+        <arg name="namespace_prefix" value="$(arg namespace_prefix)" />
+
+        <arg name="tracking_base_frame" value="$(arg tracking_base_frame)" />
+        <arg unless="$(arg eye_on_hand)" name="robot_base_frame" value="$(arg robot_base_frame)" />
+        <arg if="$(arg eye_on_hand)" name="robot_effector_frame" value="$(arg robot_effector_frame)" />
+    </include>
+
+    <!-- evaluate the accuracy of the hand-eye calibration  -->
+    <node ns="$(arg namespace)" name="calibration_evaluator" pkg="rqt_easy_handeye" type="rqt_calibration_evaluator" respawn="false" output="screen" >
+        <param name="eye_on_hand" value="$(arg eye_on_hand)" />
+        <param name="robot_base_frame" value="$(arg robot_base_frame)" />
+        <param name="robot_effector_frame" value="$(arg robot_effector_frame)" />
+        <param name="tracking_base_frame" value="$(arg tracking_base_frame)" />
+        <param name="tracking_marker_frame" value="$(arg tracking_marker_frame)" />
+    </node>
+
+    <!-- start Rviz with our configuration, in the move group's namespace -->
+    <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="true"
+          args="-d $(arg rviz_config_file)" output="screen" />
+
+
+</launch>
