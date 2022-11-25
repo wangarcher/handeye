@@ -90,7 +90,7 @@ public:
     if (nh.hasParam("corner_refinement"))
       ROS_WARN(
           "Corner refinement options have been removed in ArUco 3.0.0, corner_refinement ROS parameter is deprecated");
-
+          
     aruco::MarkerDetector::Params params = mDetector.getParameters();
     std::string thresh_method;
     switch (params._thresMethod)

@@ -1,8 +1,8 @@
 <launch>
 
-    <arg name="markerId"        default="162"/>
-    <arg name="markerSize"      default="0.0400"/>    <!-- in m -->
-    <arg name="corner_refinement" default="LINES" /> <!-- NONE, HARRIS, LINES, SUBPIX -->
+    <arg name="markerId"        default="200"/>
+    <arg name="markerSize"      default="0.038"/>    <!-- in m -->
+    <arg name="corner_refinement" default="SUBPIX" /> <!-- NONE, HARRIS, LINES, SUBPIX -->
 
 
     <node pkg="aruco_ros" type="single" name="aruco_single">
