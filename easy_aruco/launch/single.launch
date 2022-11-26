@@ -82,7 +82,7 @@
     <include unless="$(arg use_charuco)" file="$(find easy_aruco)/launch/track_aruco_marker.launch">
         <arg name="camera_namespace" value="/k4a/rgb"/>
         <arg name="dictionary" value="DICT_6X6_250"/>
-        <arg name="marker_size" value="0.038"/>
+        <arg name="marker_size" value="0.04"/>
         <arg name="reference_frame" value="camera_base"/>
         <arg name="camera_frame" value="rgb_camera_link"/>
     </include>
